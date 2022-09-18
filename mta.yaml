@@ -23,3 +23,20 @@ modules:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
+    requires:
+      - name: onlineshoping-db
+
+  - name: onlineshoping-db-deployer
+    type: hdb
+    path: db #gen/db 
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: onlineshoping-db
+
+resources:
+  - name: onlineshoping-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
